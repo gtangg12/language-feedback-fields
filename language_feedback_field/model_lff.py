@@ -1,7 +1,10 @@
 import json
-from typing import Dict, Union
+from collections import Counter
+from dataclasses import dataclass
+from typing import List, Dict, Tuple, Union
 from pathlib import Path
 
+import deeplake
 import numpy as np
 import torch
 import torch.nn as nn
@@ -19,86 +22,149 @@ from conceptfields.renderer.pipeline import Pipeline, load_pipeline
 DEFAULT_PROMPT = "Combine the following descriptions of surrounding objects into an informative description."
 
 
-def generate_equiangular_rays(n: int, flatten=False, device=None) -> TorchTensor["n", "n", 3]:
+def spherical_to_cartesian(theta: TorchTensor, phi: TorchTensor):
+    """ 
+    Convert spherical coordinates to cartesian coordinates 
     """
-    :param n: angular resolution
+    x = torch.sin(theta) * torch.cos(phi)
+    y = torch.sin(theta) * torch.sin(phi)
+    z = torch.cos(theta)
+    return x, y, z
+
+
+def cartesian_to_spherical(x: TorchTensor, y: TorchTensor, z: TorchTensor) -> Tuple[float, float]:
+    """ 
+    Convert cartesian coordinates to spherical coordinates 
     """
-    theta, phi = torch.linspace(0, 2 * np.pi, n), torch.linspace(0, np.pi, n)
-    theta_grid, phi_grid = torch.meshgrid(theta, phi)
-    x = torch.sin(phi_grid) * torch.cos(theta_grid)
-    y = torch.sin(phi_grid) * torch.sin(theta_grid)
-    z = torch.cos(phi_grid)
-    directions = torch.stack((x, y, z), axis=-1)
-    if device is not None:
-        directions = directions.to(device)
-    return directions if not flatten else directions.reshape(-1, 3)
+    r     = torch.sqrt(x**2 + y**2 + z**2)
+    theta = torch.arccos(z / r)
+    phi   = torch.arctan2(y, x)
+    return theta, phi
+
+
+def average_angles_spherical(thetas: TorchTensor, phis: TorchTensor) -> Tuple[float, float]:
+    """ 
+    Compute the average of angles in spherical coordinates 
+    """
+    # Convert all angles to cartesian coordinates
+    x, y, z = spherical_to_cartesian(thetas, phis)
+
+    # Compute the mean of the cartesian coordinates
+    mean_x = torch.mean(x)
+    mean_y = torch.mean(y)
+    mean_z = torch.mean(z)
+    
+    # Convert the mean cartesian coordinates back to spherical coordinates
+    return cartesian_to_spherical(mean_x, mean_y, mean_z)
+
+
+class ModelLFFOutput:
+    """
+    """
+    pass
+
+
+class ModelLFFOutputSceneContext(ModelLFFOutput):
+    """
+    """
+    def __init__(self, threshold_freq: int, threshold_distance: float):
+        """
+        """
+        self.threshold_freq     = threshold_freq
+        self.threshold_distance = threshold_distance
+
+    def __call__(self, outputs: Dict, labels2descriptions: Dict) -> Dict:
+        """
+        """
+        freq          = Counter()
+        mean_distance = Counter()
+        for i in outputs['semantics_pred']:
+            freq[i.item()] += 1
+        for i, distance in zip(outputs['semantics_pred'], outputs['depth']):
+            mean_distance[i.item()] += distance.item() 
+        for k, _ in mean_distance.items():
+            mean_distance[k] /= freq[k]
+        mean_distance = sorted(mean_distance.items(), key=lambda x: x[1])
+        print(mean_distance)
+        '''
+        thetas, phis = outputs['angle']
+        outputs = {}
+        for label in freq.keys():
+            if freq[label] < self.threshold_freq or mean_distance[label] > self.threshold_distance:
+                continue
+            theta, phi = average_angles_spherical(
+                thetas[outputs['semantics_pred'] == label], 
+                phis  [outputs['semantics_pred'] == label]
+            )
+            outputs[label] = {
+                'description': labels2descriptions[label],
+                'scoord': (mean_distance[label], theta.item(), phi.item()),
+            }
+        '''
+        return outputs
 
 
 class ModelLFF(nn.Module):
     """
     Model for generating a description of a scene location.
     """
-    def __init__(self, pipeline: Pipeline):
+    def __init__(self, ds: deeplake.Dataset, pipeline: Pipeline, output_func: ModelLFFOutput):
         """
         param checkpoint: Path to instance nerf checkpoint.
         """
         super().__init__()
         self.pipeline = pipeline
+        self.output_func = output_func
+        self.labels2descriptions = ds.info.get('labels2descriptions', {})
         
-
-    def forward(self, pose: TorchTensor[4, 4], prompt=DEFAULT_PROMPT) -> Dict:
+    def forward(self, pose: TorchTensor[4, 4]) -> Dict:
         """
-        :param x: Tensor of shape [batch, 3] containing xyz coordinates of scene locations.
-        :param prompt: Generate description from surrounding object descriptions.
+        :param pose: Camera pose.
         """
         # generate ray_bundle from xyz coords
-        ray_bundle = self.sample_bundle(pose)
+        ray_bundle, theta, phi = self.sample_bundle(pose)
         outputs = self.pipeline.model(ray_bundle)
-        for k, v in outputs.items():
-            if isinstance(v, torch.Tensor):
-                print(k, v.shape)
-        from collections import Counter
-        freq = Counter()
-        for i in outputs['semantics_pred']:
-            freq[i.item()] += 1
-        print(freq)
-        mean_depth = Counter()
-        for i, d in zip(outputs['semantics_pred'], outputs['depth']):
-            mean_depth[i.item()] += d.item() / freq[i.item()]
-        mean_depth = sorted(mean_depth.items(), key=lambda x: x[1])
-        print(mean_depth)
-        # get semantics and depth from querying model using ray_bundle: get vector of [n, 2] (semantics, depth)
-        # filter by depth and unique(semantics[filtered indices])
-        # ltm semantics based on prompt
-        # return dict {description: str, objects: {object_id: depth}}
-        return {}
-    
+        outputs['angle'] = (theta, phi)
+        outputs = self.output_func(outputs, self.labels2descriptions)
+        return outputs
+
     @classmethod
     def sample_bundle(cls, pose: TorchTensor[4, 4], n=32) -> RayBundle:
         """
         Sample spherical ray bundle from `poses` at resolution `n`.
         """
-        directions = generate_equiangular_rays(n, flatten=True, device=pose.device)
+        theta, phi = torch.linspace(0, 2 * np.pi, n), torch.linspace(0, np.pi, n)
+        theta, phi = torch.meshgrid(theta, phi)
+        x = torch.sin(phi) * torch.cos(theta)
+        y = torch.sin(phi) * torch.sin(theta)
+        z = torch.cos(phi)
+        directions = torch.stack((x, y, z), axis=-1).to(pose.device).reshape(-1, 3)
+        theta, phi = theta.reshape(-1), phi.reshape(-1)
+
         bundle = RayBundle(
             origins=pose[:3, 3:].reshape(1, 3).expand(len(directions), 3),
             directions=directions,
             pixel_area=torch.ones(len(directions), 1, device=pose.device),
         )
         bundle.set_camera_indices(0) # Needed for nerfacto appearance embedding
-        return bundle
+        return bundle, theta, phi
     
 
 if __name__ == '__main__':
+    from conceptfields.data.deeplake_utils import load_dataset
+    ds = load_dataset('replica-niceslam/room0_grounded_sam')
+
     BASEDIR = Path('/data/vision/torralba/scratch/gtangg12/conceptfields')
-    cameras = json.load(open(BASEDIR / 'renders/camera_path_alignment.json', 'r'))
+    cameras = json.load(open(BASEDIR / 'renders/camera_path_navigation.json', 'r'))
     cameras = get_path_from_json(cameras)
 
     pipeline = load_pipeline(
         config     =BASEDIR / 'outputs/semantics/nerfacto/2024-01-12_011604/config.yml',
         checkpoints=BASEDIR / 'outputs/semantics/nerfacto/2024-01-12_011604/nerfstudio_models',
     )
-    model = ModelLFF(pipeline)
+    model = ModelLFF(ds, pipeline, output_func=ModelLFFOutputSceneContext(10, 1.5))
     model.cuda()
     for i in range(0, len(cameras.camera_to_worlds), len(cameras.camera_to_worlds) // 5):
         print(i)
         model(cameras.camera_to_worlds[i].cuda())
+    model(cameras.camera_to_worlds[-1].cuda())
