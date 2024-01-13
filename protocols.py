@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import math
 from typing import Generic, List, Protocol, Tuple, TypeVar
 
 
@@ -7,8 +8,20 @@ class Point:
     x: float
     y: float
     z: float
+    theta: float
+    phi: float
+
     def distance(self, other: "Point") -> float:
-        return ((self.x - other.x)**2 + (self.y - other.y)**2 + (self.z - other.z)**2)**0.5
+        translation =  (
+            (self.x - other.x)**2 + 
+            (self.y - other.y)**2 + 
+            (self.z - other.z)**2
+        ) ** 0.5
+        # cos(theta), sin(theta)cos(phi), sin(theta)sin(phi)
+        rotation = (
+            1 - (math.sin(self.theta) * math.sin(other.theta) * math.cos(self.phi - other.phi) + math.cos(self.theta) * math.cos(other.theta))
+        ) ** 0.5
+        return translation + rotation
 
 class NeRFModule(Protocol):
     def query_point(self, point: Point) -> List[Tuple[Point, str]]:

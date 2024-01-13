@@ -4,7 +4,7 @@ from protocols import LLMModule, NeRFModule, Point, SpatialCacheProtocol, TLLMOu
 
 
 class SpatialCache(SpatialCacheProtocol[TLLMOut]):
-    def __init__(self, nerf: NeRFModule, llm: LLMModule, *, distance_threshold: float = 0.1):
+    def __init__(self, nerf: NeRFModule, llm: LLMModule, *, distance_threshold: float = 2):
         # very stupid, maybe later I can make an actually good kNN data structure
         self.cache: List[Tuple[Point, TLLMOut]] = []
         self.nerf = nerf
