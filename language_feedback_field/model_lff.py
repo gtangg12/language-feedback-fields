@@ -81,7 +81,7 @@ class ModelLFFOutputFuncSceneContext(ModelLFFOutputFunc):
         self.threshold_freq     = threshold_freq
         self.threshold_distance = threshold_distance
 
-    def __call__(self, model_outputs: Dict, labels2descriptions: Dict) -> Dict[str, SingleOutput]:
+    def __call__(self, model_outputs: Dict, labels2descriptions: Dict, pose: TorchTensor[4, 4]) -> Dict[str, SingleOutput]:
         """
         """
         freq          = Counter()
@@ -102,9 +102,12 @@ class ModelLFFOutputFuncSceneContext(ModelLFFOutputFunc):
                 thetas[model_outputs['semantics_pred'].cpu() == label], 
                 phis  [model_outputs['semantics_pred'].cpu() == label]
             )
+            cartesian = torch.tensor(spherical_to_cartesian(theta, phi))
+            relative = pose[:3, :3].transpose @ cartesian
+            rel_angles = cartesian_to_spherical(*relative)
             outputs[label] = {
                 'description': labels2descriptions.get(label, 'No data available.'),
-                'scoord': (mean_distance[label], rad2deg(theta.item()), rad2deg(phi.item())),
+                'scoord': (mean_distance[label], rad2deg(rel_angles[0].item()), rad2deg(rel_angles[1].item())),
             }
         return outputs
 
@@ -130,7 +133,7 @@ class ModelLFF(nn.Module):
         ray_bundle, theta, phi = self.sample_bundle(pose)
         model_outputs = self.pipeline.model(ray_bundle)
         model_outputs['angle'] = (theta, phi)
-        return self.output_func(model_outputs, self.labels2descriptions)
+        return self.output_func(model_outputs, self.labels2descriptions, pose) # bad code, pose should not be in there
 
     @classmethod
     def sample_bundle(cls, pose: TorchTensor[4, 4], n=32) -> RayBundle:

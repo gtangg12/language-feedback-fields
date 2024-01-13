@@ -13,7 +13,7 @@ class App():
             [0, 1, 0, 0],
             [0, 0, 1, 0],
             [0, 0, 0, 1]
-        ], dtype=torch.float32)
+        ], dtype=torch.float32) # world2cam, need to invert it to get cam2world
         
         pygame.init()
 
