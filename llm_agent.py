@@ -1,4 +1,6 @@
 from typing import List, Literal, Optional, Tuple
+from tqdm import tqdm
+from protocols import SingleOutput
 
 import torch
 from torchtyping import TensorType as TorchTensor
@@ -8,10 +10,18 @@ from prompts import SYSTEM_PROMPT_TEMPLATE, INITIAL_PROMPT_TEMPLATE, ADDITIONAL_
 
 import json
 
+def mock_nerf(user_pose: TorchTensor[4, 4]) -> dict[str, SingleOutput]:
+    return {
+        "table": SingleOutput("big and round", (3, 0, 0)),
+        "water": SingleOutput("water bottle", (2, 0, 0)),
+        "costco bear": SingleOutput("fuzzy like George", (1, 0, 0)),
+    }
+
 class LLMAgent():
 
     def __init__(
-        self
+        self,
+        nerf_api,
     ):
         """
         :param task_prompt: prompt describing agent's task 
@@ -19,11 +29,11 @@ class LLMAgent():
         """
         super().__init__()
         self.gpt = GPT(system_text=SYSTEM_PROMPT_TEMPLATE, system_mode=SystemMode.JSON)
-        
+        self.nerf_api = nerf_api
 
     def query(self, user_pose: TorchTensor[4, 4], task_prompt: str) -> str:
         max_attempts = 5
-        for attempt in range(max_attempts):
+        for attempt in tqdm(range(max_attempts)):
             try:
                 # Given task prompt, LLM interprets it and determines whether or not it needs to call NERF API
                 initial_prompt = INITIAL_PROMPT_TEMPLATE.format(task_prompt=task_prompt) 
@@ -36,16 +46,15 @@ class LLMAgent():
                 if attempt == max_attempts - 1:
                     raise
 
-
         if needs_scene_descriptions:
-            NERF_outputs = NERF_API(user_pose) #TODO: replace with actual NERF API call
+            NERF_outputs = self.nerf_api(user_pose) #TODO: replace with actual NERF API call
 
             scene_descriptions: List[Tuple[tuple[float, float, float], str]] = [
                 (value.scoord, value.description) for value in NERF_outputs.values()
             ]
             # Test value: [((2.874, 2.108, 4.092), "Dark brown table"), ((3.062, 3.138, 2.894), "White fridge"), ((3.062, 3.138, 2.894), "Red carpet")]
 
-            for attempt in range(max_attempts):
+            for attempt in tqdm(range(max_attempts)):
                 try:
                     # Takes in the list of coordinates and descriptions and interprets them for the user's task
                     additional_prompt = ADDITIONAL_PROMPT_TEMPLATE.format(task_prompt=task_prompt, scene_descriptions=scene_descriptions)
@@ -63,7 +72,7 @@ class LLMAgent():
     
 # Comment out or remove later!
 if __name__ == '__main__':
-    agent = LLMAgent()
+    agent = LLMAgent(mock_nerf)
     tensor = torch.Tensor(4, 4)
     tensor.fill_(1)
 
