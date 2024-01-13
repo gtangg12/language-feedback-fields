@@ -23,7 +23,7 @@ TLLMOut = TypeVar("TLLMOut", bound=LLMOutput)
 
 
 class LLMModule(Protocol, Generic[TLLMOut]):
-    def query(self, data: tuple[Point, str]) -> TLLMOut:
+    def query(self, data: List[Tuple[Point, str]]) -> TLLMOut:
         pass
 
 
