@@ -1,4 +1,6 @@
-from typing import List, Literal, Optional
+from typing import List, Literal, Optional, Tuple
+
+from torchtyping import TensorType as TorchTensor
 
 from language_feedback_field.model_gpt import SystemMode, GPT
 from prompts import SYSTEM_PROMPT_TEMPLATE, INITIAL_PROMPT_TEMPLATE, ADDITIONAL_PROMPT_TEMPLATE
@@ -20,7 +22,7 @@ class LLMAgent():
         self.reset()
         
 
-    def query(self, user_pos, task_prompt) -> str:
+    def query(self, user_pose: TorchTensor[4, 4], task_prompt: str) -> str:
 
         # Given task prompt, LLM interprets it and determines whether or not it needs to call NERF API
         initial_prompt = INITIAL_PROMPT_TEMPLATE.format(task_prompt=task_prompt) 
@@ -30,10 +32,15 @@ class LLMAgent():
         needs_scene_descriptions = prompt_json.needs_scene_description
 
         if needs_scene_descriptions:
-            scene_descriptions = NERF_API(user_pos) #TODO: replace with actual NERF API call
+
+            NERF_outputs = NERF_API(user_pose) #TODO: replace with actual NERF API call
+
+            scene_descriptions: List[Tuple[tuple[float, float, float], str]] = [
+                (value.scoord, value.description) for value in NERF_outputs.values()
+            ]
 
             # Tasks in the list of coordinates and descriptions and interprets them for the user's task
-            additional_prompt = ADDITIONAL_PROMPT_TEMPLATE.format(task_prompt=task_prompt, scene_description=scene_descriptions)
+            additional_prompt = ADDITIONAL_PROMPT_TEMPLATE.format(task_prompt=task_prompt, scene_descriptions=scene_descriptions)
 
             prompt_response = self.gpt.forward(additional_prompt) 
             prompt_json = json.loads(prompt_response)
