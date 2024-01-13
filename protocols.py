@@ -49,7 +49,7 @@ class LLMModule(Protocol, Generic[TLLMOut]):
 class SpatialCacheProtocol(Protocol, Generic[TLLMOut]):
     # nerf: NeRFModule
     llm: LLMModule
-    def cached_query(self, point: Point) -> TLLMOut:
+    def query(self, point: Point) -> TLLMOut:
         ...
 
 
