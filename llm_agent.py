@@ -17,6 +17,14 @@ def mock_nerf(user_pose: TorchTensor[4, 4]) -> dict[str, SingleOutput]:
         "costco bear": SingleOutput("fuzzy like George", (1, 0, 0)),
     }
 
+def mock_nerf_babies(user_pose: TorchTensor[4, 4]) -> dict[str, SingleOutput]:
+    if user_pose[0, 3] > 0:
+        return {
+            "knife": SingleOutput("sharp and kills you", (3, 0, 0)),
+        }
+    else:
+        return {}
+
 class LLMAgent():
 
     def __init__(
@@ -76,8 +84,15 @@ if __name__ == '__main__':
     tensor = torch.Tensor(4, 4)
     tensor.fill_(1)
 
-    agent_output = agent.query(user_pose=tensor, task_prompt="I want to walk on something fuzzy.")
-    print(agent_output)
+    # agent_output = agent.query(user_pose=tensor, task_prompt="I want to walk on something fuzzy.")
+    # print(agent_output)
 
-    agent_output = agent.query(user_pose=tensor, task_prompt="I'm thirsty.")
-    print(agent_output)
+    # agent_output = agent.query(user_pose=tensor, task_prompt="I'm thirsty.")
+    # print(agent_output)
+
+    task = "Are there objects nearby which can hurt a baby?"
+    agent_babies = LLMAgent(mock_nerf_babies)
+    print(agent_babies.query(user_pose=tensor, task_prompt=task))
+    back_pose = torch.Tensor(4, 4)
+    back_pose.fill_(-1)
+    print(agent_babies.query(user_pose=back_pose, task_prompt=task))
