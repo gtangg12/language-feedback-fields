@@ -1,5 +1,6 @@
 from typing import List, Literal, Optional, Tuple
 from tqdm import tqdm
+from babies import mock_nerf_babies, babies_task, front_pose, back_pose
 from protocols import SingleOutput
 
 import torch
@@ -18,6 +19,7 @@ def mock_nerf(user_pose: TorchTensor[4, 4]) -> dict[str, SingleOutput]:
         "water": SingleOutput("water bottle", (2, 0, 0)),
         "costco bear": SingleOutput("fuzzy like George", (1, 0, 0)),
     }
+
 
 class LLMAgent():
 
@@ -109,3 +111,12 @@ if __name__ == '__main__':
     print(agent_output)
     print()
 
+    # agent_output = agent.query(user_pose=tensor, task_prompt="I want to walk on something fuzzy.")
+    # print(agent_output)
+
+    # agent_output = agent.query(user_pose=tensor, task_prompt="I'm thirsty.")
+    # print(agent_output)
+
+    agent_babies = LLMAgent(mock_nerf_babies)
+    print(agent_babies.query(user_pose=front_pose, task_prompt=babies_task))
+    print(agent_babies.query(user_pose=back_pose, task_prompt=babies_task))
