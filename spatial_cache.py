@@ -13,7 +13,10 @@ class NeRFModule(Protocol):
 
 
 class LLMOutput(Protocol):
-    pass
+    # can add this in later
+    # @staticmethod
+    # def spatial_interpolate(cached_outputs: "tuple[Point, LLMOutput]") -> "LLMOutput":
+    #     pass
 
 
 TLLMOut = TypeVar("TLLMOut", bound=LLMOutput)
