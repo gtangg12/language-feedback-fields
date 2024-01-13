@@ -15,8 +15,8 @@ class SpatialCache(SpatialCacheProtocol[TLLMOut]):
         self.inv_flat: dict[tuple[str, tuple[float, ...]], TLLMOut] = {}
 
     def cached_query(self, pose: TorchTensor[4, 4], task: str) -> TLLMOut:
-        flat_pose = pose[:3, 1:].flatten() # 9 dimensional embedding of the pose
-        tree = self.kd_tree.setdefault(task, KDTree([], 9))
+        flat_pose = pose[:3].flatten() # 12 dimensional embedding of the pose
+        tree = self.kd_tree.setdefault(task, KDTree([], 12))
         nearest = tree.get_nearest(flat_pose, return_dist_sq=True)
         if nearest is None or nearest[0] > self.distance_threshold:
             llm_out = self.llm.query(pose)
