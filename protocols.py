@@ -48,3 +48,9 @@ class SpatialCacheProtocol(Protocol, Generic[TLLMOut]):
     llm: LLMModule
     def cached_query(self, point: Point) -> TLLMOut:
         ...
+
+
+@dataclass
+class SingleOutput:
+    description: str
+    scoord: tuple[float, float, float] # r, theta, phi
