@@ -58,13 +58,20 @@ def average_angles_spherical(thetas: TorchTensor, phis: TorchTensor) -> Tuple[fl
     return cartesian_to_spherical(mean_x, mean_y, mean_z)
 
 
-class ModelLFFOutput:
+def rad2deg(rad: float) -> float:
+    """
+    Convert radians to degrees.
+    """
+    return rad * 180 / np.pi
+
+
+class ModelLFFOutputFunc:
     """
     """
     pass
 
 
-class ModelLFFOutputSceneContext(ModelLFFOutput):
+class ModelLFFOutputFuncSceneContext(ModelLFFOutputFunc):
     """
     """
     def __init__(self, threshold_freq: int, threshold_distance: float):
@@ -73,34 +80,31 @@ class ModelLFFOutputSceneContext(ModelLFFOutput):
         self.threshold_freq     = threshold_freq
         self.threshold_distance = threshold_distance
 
-    def __call__(self, outputs: Dict, labels2descriptions: Dict) -> Dict:
+    def __call__(self, model_outputs: Dict, labels2descriptions: Dict) -> Dict:
         """
         """
         freq          = Counter()
         mean_distance = Counter()
-        for i in outputs['semantics_pred']:
+        for i in model_outputs['semantics_pred']:
             freq[i.item()] += 1
-        for i, distance in zip(outputs['semantics_pred'], outputs['depth']):
+        for i, distance in zip(model_outputs['semantics_pred'], model_outputs['depth']):
             mean_distance[i.item()] += distance.item() 
         for k, _ in mean_distance.items():
             mean_distance[k] /= freq[k]
-        mean_distance = sorted(mean_distance.items(), key=lambda x: x[1])
-        print(mean_distance)
-        '''
-        thetas, phis = outputs['angle']
+        
+        thetas, phis = model_outputs['angle']
         outputs = {}
         for label in freq.keys():
             if freq[label] < self.threshold_freq or mean_distance[label] > self.threshold_distance:
                 continue
             theta, phi = average_angles_spherical(
-                thetas[outputs['semantics_pred'] == label], 
-                phis  [outputs['semantics_pred'] == label]
+                thetas[model_outputs['semantics_pred'].cpu() == label], 
+                phis  [model_outputs['semantics_pred'].cpu() == label]
             )
             outputs[label] = {
-                'description': labels2descriptions[label],
-                'scoord': (mean_distance[label], theta.item(), phi.item()),
+                'description': labels2descriptions.get(label, 'No data available.'),
+                'scoord': (mean_distance[label], rad2deg(theta.item()), rad2deg(phi.item())),
             }
-        '''
         return outputs
 
 
@@ -108,7 +112,7 @@ class ModelLFF(nn.Module):
     """
     Model for generating a description of a scene location.
     """
-    def __init__(self, ds: deeplake.Dataset, pipeline: Pipeline, output_func: ModelLFFOutput):
+    def __init__(self, ds: deeplake.Dataset, pipeline: Pipeline, output_func: ModelLFFOutputFunc):
         """
         param checkpoint: Path to instance nerf checkpoint.
         """
@@ -123,10 +127,9 @@ class ModelLFF(nn.Module):
         """
         # generate ray_bundle from xyz coords
         ray_bundle, theta, phi = self.sample_bundle(pose)
-        outputs = self.pipeline.model(ray_bundle)
-        outputs['angle'] = (theta, phi)
-        outputs = self.output_func(outputs, self.labels2descriptions)
-        return outputs
+        model_outputs = self.pipeline.model(ray_bundle)
+        model_outputs['angle'] = (theta, phi)
+        return self.output_func(model_outputs, self.labels2descriptions)
 
     @classmethod
     def sample_bundle(cls, pose: TorchTensor[4, 4], n=32) -> RayBundle:
@@ -151,6 +154,7 @@ class ModelLFF(nn.Module):
     
 
 if __name__ == '__main__':
+    torch.cuda.set_device(4)
     from conceptfields.data.deeplake_utils import load_dataset
     ds = load_dataset('replica-niceslam/room0_grounded_sam')
 
@@ -162,7 +166,7 @@ if __name__ == '__main__':
         config     =BASEDIR / 'outputs/semantics/nerfacto/2024-01-12_011604/config.yml',
         checkpoints=BASEDIR / 'outputs/semantics/nerfacto/2024-01-12_011604/nerfstudio_models',
     )
-    model = ModelLFF(ds, pipeline, output_func=ModelLFFOutputSceneContext(10, 1.5))
+    model = ModelLFF(ds, pipeline, output_func=ModelLFFOutputFuncSceneContext(10, 1.75))
     model.cuda()
     for i in range(0, len(cameras.camera_to_worlds), len(cameras.camera_to_worlds) // 5):
         print(i)
