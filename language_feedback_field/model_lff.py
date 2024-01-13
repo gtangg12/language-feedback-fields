@@ -6,6 +6,7 @@ from pathlib import Path
 
 import deeplake
 import numpy as np
+from protocols import SingleOutput
 import torch
 import torch.nn as nn
 from torchtyping import TensorType as TorchTensor
@@ -80,7 +81,7 @@ class ModelLFFOutputFuncSceneContext(ModelLFFOutputFunc):
         self.threshold_freq     = threshold_freq
         self.threshold_distance = threshold_distance
 
-    def __call__(self, model_outputs: Dict, labels2descriptions: Dict) -> Dict:
+    def __call__(self, model_outputs: Dict, labels2descriptions: Dict) -> Dict[str, SingleOutput]:
         """
         """
         freq          = Counter()
@@ -121,7 +122,7 @@ class ModelLFF(nn.Module):
         self.output_func = output_func
         self.labels2descriptions = ds.info.get('labels2descriptions', {})
         
-    def forward(self, pose: TorchTensor[4, 4]) -> Dict:
+    def forward(self, pose: TorchTensor[4, 4]) -> Dict[str, SingleOutput]:
         """
         :param pose: Camera pose.
         """
