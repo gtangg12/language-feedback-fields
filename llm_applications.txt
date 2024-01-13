@@ -1,5 +1,8 @@
 Contextual summaries of the scene
-Identifying dangerous objects
+Identifying dangerous/important objects
 Searching historical notes for solutions to similar situation
 Guide user at a shopping mall
 Make a video game that lets user be the robot
+Determining whether certain actions are appropriate
+Balancing objects in a factory
+Estimating the value of a physical property
