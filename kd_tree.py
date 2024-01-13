@@ -149,3 +149,10 @@ class KDTree(object):
         """
         l = self._get_knn(self._root, point, 1, return_dist_sq, [])
         return l[0] if len(l) else None
+    
+
+if __name__ == '__main__':
+    tree = KDTree([], 4)
+    tree.add_point([0, 0, 0, 1])
+    print(tree.get_knn([1, 0, 0, 0], 1, True))
+    print(tree.get_nearest([1, 0, 0, 0], True))
