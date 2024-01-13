@@ -1,10 +1,9 @@
 from typing import List, Literal, Optional
 
 from language_feedback_field.model_gpt import SystemMode, GPT
-from prompts import SINGLE_TURN_MODE_SYSTEM_PROMPT, INITIAL_PROMPT_TEMPLATE, ADDITIONAL_PROMPT_TEMPLATE
+from prompts import SYSTEM_PROMPT_TEMPLATE, INITIAL_PROMPT_TEMPLATE, ADDITIONAL_PROMPT_TEMPLATE
 
 import json
-
 
 class LLMAgent():
 
@@ -17,14 +16,13 @@ class LLMAgent():
         """
         super().__init__()
 
-        self.gpt = GPT(system_text=SINGLE_TURN_MODE_SYSTEM_PROMPT, system_mode=SystemMode.JSON)
+        self.gpt = GPT(system_text=SYSTEM_PROMPT_TEMPLATE, system_mode=SystemMode.JSON)
         self.reset()
         
 
     def query(self, user_pos, task_prompt) -> str:
 
         # Given task prompt, LLM interprets it and determines whether or not it needs to call NERF API
-        #TODO: prompt engineer a good prompt template to place the task_prompt
         initial_prompt = INITIAL_PROMPT_TEMPLATE.format(task_prompt=task_prompt) 
         prompt_response = self.gpt.forward(initial_prompt)
 
@@ -34,7 +32,7 @@ class LLMAgent():
         if needs_scene_descriptions:
             scene_descriptions = NERF_API(user_pos) #TODO: replace with actual NERF API call
 
-            # TODO: prompt engineer something to aggregate the list of descriptions (scene_description)
+            # Tasks in the list of coordinates and descriptions and interprets them for the user's task
             additional_prompt = ADDITIONAL_PROMPT_TEMPLATE.format(task_prompt=task_prompt, scene_description=scene_descriptions)
 
             prompt_response = self.gpt.forward(additional_prompt) 
@@ -43,15 +41,3 @@ class LLMAgent():
             return prompt_response.output
         
         return prompt_json.output
-
-"""
-prompt_template = 
-        You are an agent moving through a 3D space with the the following task: {task_prompt}.
-
-        You are given the following list of descriptions and distances/orientations of objects in your field of vision.
-        {objects_list}.
-
-        Based on the task, aggregate the descriptions and orientations you are given to produce an optimal response and direction/angle to move in. 
-
-        Return the optimal response and direction/angle in json format.
-        """
