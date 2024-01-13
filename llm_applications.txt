@@ -1,3 +1,5 @@
 Contextual summaries of the scene
 Identifying dangerous objects
 Searching historical notes for solutions to similar situation
+Guide user at a shopping mall
+Make a video game that lets user be the robot
