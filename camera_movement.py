@@ -110,12 +110,16 @@ class App():
         font_size = 20
         font = pygame.font.Font(None, font_size) 
         llm_output = self.llm.query(user_pose=self.pose, task_prompt=self.task)
-        image = font.render(str(llm_output), True, (255, 255, 255))
-        image_surface = pygame.Surface((self.window_width, self.window_height))
-        image_surface.blit(image, (0, 0)) 
-        self.window.blit(image_surface, (0, 0))
 
-        print(self.pose, llm_output)
+        output_desc = font.render(str(llm_output), True, (255, 255, 255))
+        output_surface = pygame.Surface((self.window_width, 300))
+        output_surface.blit(output_desc, (0, 0)) 
+        self.window.blit(output_surface, (0, 0))
+
+        post_desc = font.render(str(self.pose), True, (255, 255, 255))
+        post_surface = pygame.Surface((self.window_width, 300))
+        post_surface.blit(post_desc, (0, 0))
+        self.window.blit(post_surface, (0, 300))
 
 if __name__ == "__main__":
     agent_babies = LLMAgent(mock_nerf_babies)
