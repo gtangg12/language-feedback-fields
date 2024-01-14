@@ -6,7 +6,7 @@ babies_task = "Are there objects nearby which can hurt a baby?"
 def mock_nerf_babies(user_pose: TorchTensor[4, 4]) -> dict[str, SingleOutput]:
     if user_pose[0, 3] > 0:
         return {
-            "knife": SingleOutput("sharp and kills you", (3, 0, 0)),
+            "knife": SingleOutput("sharp and kills you", 3),
         }
     else:
         return {}
