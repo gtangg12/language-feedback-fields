@@ -271,7 +271,7 @@
             }
         }
     ],
-    "5": {
+    "5": [{
         "5": {
             "description": "Object: Fluorescent ceiling lights. The lights are installed in an office setting that features a window with blinds and a mounted television or display screen on the wall.",
             "distance": 0.6465993116182439
@@ -312,5 +312,5 @@
             "description": "Object: A beige armchair with a blue pillow. The armchair is modern and high-backed, located in a room with large windows, blinds, and another similar armchair. There is also a floor vase with yellow foliage near the armchair.",
             "distance": 1.283334576166593
         }
-    }
+    }]
 }
