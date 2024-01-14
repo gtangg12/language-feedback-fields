@@ -15,4 +15,5 @@ def interact_with_json(path: str, task: str):
 
 
 if __name__ == '__main__':
-    interact_with_json('outputs_reasoning.json', "find the window")
+    # interact_with_json('outputs_reasoning.json', "find the window")
+    interact_with_json('outputs_navigation.json', 'explain the nearest object')

@@ -203,7 +203,7 @@
             }
         }
     ],
-    "5": {
+    "5": [{
         "5": {
             "description": "Object: Fluorescent ceiling lights. The lights are installed in an office setting that features a window with blinds and a mounted television or display screen on the wall.",
             "distance": 1.6495422327863998
@@ -236,5 +236,5 @@
             "description": "Object: A black and white canvas print. The print is abstract and hangs above a sofa adorned with decorative pillows, with interpretations ranging from an outdoor landscape to a boat on water, textured surfaces, or even a railway scene. However, the exact content of the image is not definitively described.",
             "distance": 1.1595524042844771
         }
-    }
+    }]
 }
