@@ -9,6 +9,8 @@ from torchtyping import TensorType as TorchTensor
 from language_feedback_field.model_gpt import SystemMode, GPT
 from prompts import SYSTEM_PROMPT_TEMPLATE, INITIAL_PROMPT_TEMPLATE, ADDITIONAL_PROMPT_TEMPLATE
 
+from scenes import baby_nerf, rental_nerf, home_nerf
+
 import json
 
 def mock_nerf(user_pose: TorchTensor[4, 4]) -> dict[str, SingleOutput]:
@@ -74,9 +76,40 @@ class LLMAgent():
     
 # Comment out or remove later!
 if __name__ == '__main__':
-    agent = LLMAgent(mock_nerf)
     tensor = torch.Tensor(4, 4)
     tensor.fill_(1)
+
+    # Baby-proofing
+    agent = LLMAgent(baby_nerf)
+    baby_task = "Help me baby-proof my home."
+    print(baby_task)
+    agent_output = agent.query(user_pose=tensor, task_prompt=baby_task)
+    print(agent_output)
+    print()
+
+    # Rental inspection
+    agent = LLMAgent(rental_nerf)
+    rental_task = "Help me inspect my rental apartment before moving in."
+    print(rental_task)
+    agent_output = agent.query(user_pose=tensor, task_prompt=rental_task)
+    print(agent_output)
+    print()
+
+    # Home shopping inspection
+    agent = LLMAgent(home_nerf)
+    home_shopping_task = "What am I missing from my apartment?"
+    print(home_shopping_task)
+    agent_output = agent.query(user_pose=tensor, task_prompt=home_shopping_task)
+    print(agent_output)
+    print()
+
+    # Interior design
+    agent = LLMAgent(home_nerf)
+    interior_design_task = "What am I missing from my apartment?"
+    print(interior_design_task)
+    agent_output = agent.query(user_pose=tensor, task_prompt=interior_design_task)
+    print(agent_output)
+    print()
 
     # agent_output = agent.query(user_pose=tensor, task_prompt="I want to walk on something fuzzy.")
     # print(agent_output)
