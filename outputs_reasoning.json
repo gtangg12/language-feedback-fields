@@ -1,0 +1,316 @@
+{
+    "0": [
+        {
+            "5": {
+                "description": "Object: Fluorescent ceiling lights. The lights are installed in an office setting that features a window with blinds and a mounted television or display screen on the wall.",
+                "distance": 0.8093746239488775
+            },
+            "11": {
+                "description": "Object: White horizontal window blinds. The blinds are installed above a seating area with a brown couch, allowing sunlight to filter through. They are shown in both open and partially closed states and are installed in a room featuring a dropped ceiling and other decorative elements.",
+                "distance": 1.3913823207219442
+            },
+            "1": {
+                "description": "Object: A simply furnished office space. The office features a wall-mounted, rectangular light fixture, a small wooden table with a potted plant, a wooden sideboard under a window, and a door with a glass panel. Minimalistic decor is employed throughout the space.",
+                "distance": 1.7432146018201655
+            },
+            "19": {
+                "description": "Object: A beige armchair with a blue pillow. The armchair is modern and high-backed, located in a room with large windows, blinds, and another similar armchair. There is also a floor vase with yellow foliage near the armchair.",
+                "distance": 0.9921447758016915
+            },
+            "7": {
+                "description": "Object: A round wooden coffee table. The coffee table is in the center of a living room surrounded by white sofas and a patterned area rug.",
+                "distance": 1.2851206594043307
+            },
+            "8": {
+                "description": "Object: Window blinds. The blinds are closed, covering a large window in an office setting. Below the window, there are two chairs and a small table against the wall.",
+                "distance": 1.511321851840386
+            },
+            "18": {
+                "description": "Object: A light-colored armchair with a blue cushion. The armchair is positioned near a window with blinds in a room that is either an office or waiting room setting, and there may be a yellow plant nearby.",
+                "distance": 1.1749972184499105
+            },
+            "34": {
+                "description": "Object: Two armchairs with blue cushions. The armchairs are matching, beige, and situated side by side on a grey patterned area rug in a living room. They are accompanied by a white loveseat, a side table with books, and a lamp near a window.",
+                "distance": 1.5157194510102272
+            },
+            "10": {
+                "description": "Object: A white sofa. The sofa is adorned with decorative pillows and a gray throw blanket, positioned in a well-lit room with a window, adjacent furniture, and a floor lamp.",
+                "distance": 1.5944324135780334
+            },
+            "15": {
+                "description": "Object: A round wooden coffee table. The coffee table is adorned with decorative items including a vase, a pair of horns, a dish on a tray, books, a candle, and a metal object. It is positioned in a living room in front of a white sofa.",
+                "distance": 1.0941417242089908
+            },
+            "25": {
+                "description": "Object: A fluorescent ceiling light fixture. The elongated, rectangular light is installed within a drop ceiling with ceiling tiles, in an office setting. The light panel is part of a suspended ceiling grid.",
+                "distance": 0.6856998744465056
+            },
+            "12": {
+                "description": "Object: A white sofa. The sofa is adorned with various decorative pillows and positioned against a wall under a large piece of abstract art in a modern living room. It is adjacent to a side table and floor lamp, and situated beside a wooden round coffee table.",
+                "distance": 1.142930642978565
+            },
+            "9": {
+                "description": "Object: A black and white canvas print. The print is abstract and hangs above a sofa adorned with decorative pillows, with interpretations ranging from an outdoor landscape to a boat on water, textured surfaces, or even a railway scene. However, the exact content of the image is not definitively described.",
+                "distance": 1.2541710038979847
+            }
+        }
+    ],
+    "1": [
+        {
+            "5": {
+                "description": "Object: Fluorescent ceiling lights. The lights are installed in an office setting that features a window with blinds and a mounted television or display screen on the wall.",
+                "distance": 0.7029529755498156
+            },
+            "11": {
+                "description": "Object: White horizontal window blinds. The blinds are installed above a seating area with a brown couch, allowing sunlight to filter through. They are shown in both open and partially closed states and are installed in a room featuring a dropped ceiling and other decorative elements.",
+                "distance": 1.3479958586394787
+            },
+            "19": {
+                "description": "Object: A beige armchair with a blue pillow. The armchair is modern and high-backed, located in a room with large windows, blinds, and another similar armchair. There is also a floor vase with yellow foliage near the armchair.",
+                "distance": 1.050816716750463
+            },
+            "7": {
+                "description": "Object: A round wooden coffee table. The coffee table is in the center of a living room surrounded by white sofas and a patterned area rug.",
+                "distance": 1.3868435816458093
+            },
+            "18": {
+                "description": "Object: A light-colored armchair with a blue cushion. The armchair is positioned near a window with blinds in a room that is either an office or waiting room setting, and there may be a yellow plant nearby.",
+                "distance": 1.1482610702514648
+            },
+            "34": {
+                "description": "Object: Two armchairs with blue cushions. The armchairs are matching, beige, and situated side by side on a grey patterned area rug in a living room. They are accompanied by a white loveseat, a side table with books, and a lamp near a window.",
+                "distance": 1.6890806693297167
+            },
+            "10": {
+                "description": "Object: A white sofa. The sofa is adorned with decorative pillows and a gray throw blanket, positioned in a well-lit room with a window, adjacent furniture, and a floor lamp.",
+                "distance": 1.5374593883752823
+            },
+            "15": {
+                "description": "Object: A round wooden coffee table. The coffee table is adorned with decorative items including a vase, a pair of horns, a dish on a tray, books, a candle, and a metal object. It is positioned in a living room in front of a white sofa.",
+                "distance": 1.1258795311053593
+            },
+            "25": {
+                "description": "Object: A fluorescent ceiling light fixture. The elongated, rectangular light is installed within a drop ceiling with ceiling tiles, in an office setting. The light panel is part of a suspended ceiling grid.",
+                "distance": 0.6517577057793027
+            },
+            "12": {
+                "description": "Object: A white sofa. The sofa is adorned with various decorative pillows and positioned against a wall under a large piece of abstract art in a modern living room. It is adjacent to a side table and floor lamp, and situated beside a wooden round coffee table.",
+                "distance": 1.2792926011262116
+            },
+            "9": {
+                "description": "Object: A black and white canvas print. The print is abstract and hangs above a sofa adorned with decorative pillows, with interpretations ranging from an outdoor landscape to a boat on water, textured surfaces, or even a railway scene. However, the exact content of the image is not definitively described.",
+                "distance": 1.341814860701561
+            },
+            "8": {
+                "description": "Object: Window blinds. The blinds are closed, covering a large window in an office setting. Below the window, there are two chairs and a small table against the wall.",
+                "distance": 1.4369941172392473
+            }
+        }
+    ],
+    "2": [
+        {
+            "5": {
+                "description": "Object: Fluorescent ceiling lights. The lights are installed in an office setting that features a window with blinds and a mounted television or display screen on the wall.",
+                "distance": 0.6650620009073622
+            },
+            "11": {
+                "description": "Object: White horizontal window blinds. The blinds are installed above a seating area with a brown couch, allowing sunlight to filter through. They are shown in both open and partially closed states and are installed in a room featuring a dropped ceiling and other decorative elements.",
+                "distance": 1.3165863720994246
+            },
+            "7": {
+                "description": "Object: A round wooden coffee table. The coffee table is in the center of a living room surrounded by white sofas and a patterned area rug.",
+                "distance": 1.4067520123685715
+            },
+            "18": {
+                "description": "Object: A light-colored armchair with a blue cushion. The armchair is positioned near a window with blinds in a room that is either an office or waiting room setting, and there may be a yellow plant nearby.",
+                "distance": 1.0953330424698917
+            },
+            "8": {
+                "description": "Object: Window blinds. The blinds are closed, covering a large window in an office setting. Below the window, there are two chairs and a small table against the wall.",
+                "distance": 1.5626493744228198
+            },
+            "6": {
+                "description": "Object: White horizontal blinds. The blinds are covering large windows in a room furnished with a white sofa and a lamp, and the room could be an office or living space.",
+                "distance": 1.6314017573992412
+            },
+            "10": {
+                "description": "Object: A white sofa. The sofa is adorned with decorative pillows and a gray throw blanket, positioned in a well-lit room with a window, adjacent furniture, and a floor lamp.",
+                "distance": 1.4605506393644545
+            },
+            "25": {
+                "description": "Object: A fluorescent ceiling light fixture. The elongated, rectangular light is installed within a drop ceiling with ceiling tiles, in an office setting. The light panel is part of a suspended ceiling grid.",
+                "distance": 0.6321372191111246
+            },
+            "15": {
+                "description": "Object: A round wooden coffee table. The coffee table is adorned with decorative items including a vase, a pair of horns, a dish on a tray, books, a candle, and a metal object. It is positioned in a living room in front of a white sofa.",
+                "distance": 1.1584471712509792
+            },
+            "19": {
+                "description": "Object: A beige armchair with a blue pillow. The armchair is modern and high-backed, located in a room with large windows, blinds, and another similar armchair. There is also a floor vase with yellow foliage near the armchair.",
+                "distance": 1.087401410807734
+            },
+            "12": {
+                "description": "Object: A white sofa. The sofa is adorned with various decorative pillows and positioned against a wall under a large piece of abstract art in a modern living room. It is adjacent to a side table and floor lamp, and situated beside a wooden round coffee table.",
+                "distance": 1.4224039886308752
+            },
+            "9": {
+                "description": "Object: A black and white canvas print. The print is abstract and hangs above a sofa adorned with decorative pillows, with interpretations ranging from an outdoor landscape to a boat on water, textured surfaces, or even a railway scene. However, the exact content of the image is not definitively described.",
+                "distance": 1.4949515206473214
+            }
+        }
+    ],
+    "3": [
+        {
+            "5": {
+                "description": "Object: Fluorescent ceiling lights. The lights are installed in an office setting that features a window with blinds and a mounted television or display screen on the wall.",
+                "distance": 0.6697747818763974
+            },
+            "11": {
+                "description": "Object: White horizontal window blinds. The blinds are installed above a seating area with a brown couch, allowing sunlight to filter through. They are shown in both open and partially closed states and are installed in a room featuring a dropped ceiling and other decorative elements.",
+                "distance": 1.3276925860224544
+            },
+            "18": {
+                "description": "Object: A light-colored armchair with a blue cushion. The armchair is positioned near a window with blinds in a room that is either an office or waiting room setting, and there may be a yellow plant nearby.",
+                "distance": 1.0832493071045195
+            },
+            "7": {
+                "description": "Object: A round wooden coffee table. The coffee table is in the center of a living room surrounded by white sofas and a patterned area rug.",
+                "distance": 1.4017038564572388
+            },
+            "8": {
+                "description": "Object: Window blinds. The blinds are closed, covering a large window in an office setting. Below the window, there are two chairs and a small table against the wall.",
+                "distance": 1.6204451436088199
+            },
+            "6": {
+                "description": "Object: White horizontal blinds. The blinds are covering large windows in a room furnished with a white sofa and a lamp, and the room could be an office or living space.",
+                "distance": 1.5155911922454834
+            },
+            "10": {
+                "description": "Object: A white sofa. The sofa is adorned with decorative pillows and a gray throw blanket, positioned in a well-lit room with a window, adjacent furniture, and a floor lamp.",
+                "distance": 1.3590469619502192
+            },
+            "4": {
+                "description": "Object: White window blinds. The blinds are partially closed, covering a window with a white couch and decorative pillows situated below it, all part of a well-lit room.",
+                "distance": 1.7001285076141357
+            },
+            "25": {
+                "description": "Object: A fluorescent ceiling light fixture. The elongated, rectangular light is installed within a drop ceiling with ceiling tiles, in an office setting. The light panel is part of a suspended ceiling grid.",
+                "distance": 0.6402848994030672
+            },
+            "15": {
+                "description": "Object: A round wooden coffee table. The coffee table is adorned with decorative items including a vase, a pair of horns, a dish on a tray, books, a candle, and a metal object. It is positioned in a living room in front of a white sofa.",
+                "distance": 1.1521339579062029
+            },
+            "19": {
+                "description": "Object: A beige armchair with a blue pillow. The armchair is modern and high-backed, located in a room with large windows, blinds, and another similar armchair. There is also a floor vase with yellow foliage near the armchair.",
+                "distance": 1.1115574083830182
+            },
+            "12": {
+                "description": "Object: A white sofa. The sofa is adorned with various decorative pillows and positioned against a wall under a large piece of abstract art in a modern living room. It is adjacent to a side table and floor lamp, and situated beside a wooden round coffee table.",
+                "distance": 1.4974271247261448
+            },
+            "9": {
+                "description": "Object: A black and white canvas print. The print is abstract and hangs above a sofa adorned with decorative pillows, with interpretations ranging from an outdoor landscape to a boat on water, textured surfaces, or even a railway scene. However, the exact content of the image is not definitively described.",
+                "distance": 1.6735210915406544
+            }
+        }
+    ],
+    "4": [
+        {
+            "5": {
+                "description": "Object: Fluorescent ceiling lights. The lights are installed in an office setting that features a window with blinds and a mounted television or display screen on the wall.",
+                "distance": 0.6802714238018864
+            },
+            "11": {
+                "description": "Object: White horizontal window blinds. The blinds are installed above a seating area with a brown couch, allowing sunlight to filter through. They are shown in both open and partially closed states and are installed in a room featuring a dropped ceiling and other decorative elements.",
+                "distance": 1.338318730845596
+            },
+            "18": {
+                "description": "Object: A light-colored armchair with a blue cushion. The armchair is positioned near a window with blinds in a room that is either an office or waiting room setting, and there may be a yellow plant nearby.",
+                "distance": 1.0565160759564103
+            },
+            "7": {
+                "description": "Object: A round wooden coffee table. The coffee table is in the center of a living room surrounded by white sofas and a patterned area rug.",
+                "distance": 1.397774738383431
+            },
+            "16": {
+                "description": "Object: White venetian blinds on a window. The window allows filtered light to pass through and is part of a room that includes a beige couch situated underneath it. The setting is an office with light-colored walls.",
+                "distance": 1.353777441111478
+            },
+            "8": {
+                "description": "Object: Window blinds. The blinds are closed, covering a large window in an office setting. Below the window, there are two chairs and a small table against the wall.",
+                "distance": 1.6361385654000675
+            },
+            "6": {
+                "description": "Object: White horizontal blinds. The blinds are covering large windows in a room furnished with a white sofa and a lamp, and the room could be an office or living space.",
+                "distance": 1.3432517022621342
+            },
+            "10": {
+                "description": "Object: A white sofa. The sofa is adorned with decorative pillows and a gray throw blanket, positioned in a well-lit room with a window, adjacent furniture, and a floor lamp.",
+                "distance": 1.2708210599037908
+            },
+            "4": {
+                "description": "Object: White window blinds. The blinds are partially closed, covering a window with a white couch and decorative pillows situated below it, all part of a well-lit room.",
+                "distance": 1.5761518875757854
+            },
+            "25": {
+                "description": "Object: A fluorescent ceiling light fixture. The elongated, rectangular light is installed within a drop ceiling with ceiling tiles, in an office setting. The light panel is part of a suspended ceiling grid.",
+                "distance": 0.6850762550647442
+            },
+            "15": {
+                "description": "Object: A round wooden coffee table. The coffee table is adorned with decorative items including a vase, a pair of horns, a dish on a tray, books, a candle, and a metal object. It is positioned in a living room in front of a white sofa.",
+                "distance": 1.1737515595224168
+            },
+            "19": {
+                "description": "Object: A beige armchair with a blue pillow. The armchair is modern and high-backed, located in a room with large windows, blinds, and another similar armchair. There is also a floor vase with yellow foliage near the armchair.",
+                "distance": 1.1977136373519897
+            },
+            "12": {
+                "description": "Object: A white sofa. The sofa is adorned with various decorative pillows and positioned against a wall under a large piece of abstract art in a modern living room. It is adjacent to a side table and floor lamp, and situated beside a wooden round coffee table.",
+                "distance": 1.6390420290140004
+            }
+        }
+    ],
+    "5": {
+        "5": {
+            "description": "Object: Fluorescent ceiling lights. The lights are installed in an office setting that features a window with blinds and a mounted television or display screen on the wall.",
+            "distance": 0.6465993116182439
+        },
+        "11": {
+            "description": "Object: White horizontal window blinds. The blinds are installed above a seating area with a brown couch, allowing sunlight to filter through. They are shown in both open and partially closed states and are installed in a room featuring a dropped ceiling and other decorative elements.",
+            "distance": 1.3127030907450496
+        },
+        "8": {
+            "description": "Object: Window blinds. The blinds are closed, covering a large window in an office setting. Below the window, there are two chairs and a small table against the wall.",
+            "distance": 1.591204258111807
+        },
+        "18": {
+            "description": "Object: A light-colored armchair with a blue cushion. The armchair is positioned near a window with blinds in a room that is either an office or waiting room setting, and there may be a yellow plant nearby.",
+            "distance": 1.0220012906938791
+        },
+        "7": {
+            "description": "Object: A round wooden coffee table. The coffee table is in the center of a living room surrounded by white sofas and a patterned area rug.",
+            "distance": 1.4197091901457155
+        },
+        "6": {
+            "description": "Object: White horizontal blinds. The blinds are covering large windows in a room furnished with a white sofa and a lamp, and the room could be an office or living space.",
+            "distance": 1.1737876883868514
+        },
+        "10": {
+            "description": "Object: A white sofa. The sofa is adorned with decorative pillows and a gray throw blanket, positioned in a well-lit room with a window, adjacent furniture, and a floor lamp.",
+            "distance": 1.2144008969005786
+        },
+        "4": {
+            "description": "Object: White window blinds. The blinds are partially closed, covering a window with a white couch and decorative pillows situated below it, all part of a well-lit room.",
+            "distance": 1.4336346983909607
+        },
+        "15": {
+            "description": "Object: A round wooden coffee table. The coffee table is adorned with decorative items including a vase, a pair of horns, a dish on a tray, books, a candle, and a metal object. It is positioned in a living room in front of a white sofa.",
+            "distance": 1.2793204417595496
+        },
+        "19": {
+            "description": "Object: A beige armchair with a blue pillow. The armchair is modern and high-backed, located in a room with large windows, blinds, and another similar armchair. There is also a floor vase with yellow foliage near the armchair.",
+            "distance": 1.283334576166593
+        }
+    }
+}

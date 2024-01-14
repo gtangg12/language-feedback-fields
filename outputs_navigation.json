@@ -1,0 +1,240 @@
+{
+    "0": [
+        {
+            "5": {
+                "description": "Object: Fluorescent ceiling lights. The lights are installed in an office setting that features a window with blinds and a mounted television or display screen on the wall.",
+                "distance": 1.5945399443605053
+            },
+            "7": {
+                "description": "Object: A round wooden coffee table. The coffee table is in the center of a living room surrounded by white sofas and a patterned area rug.",
+                "distance": 0.6142094979423502
+            },
+            "17": {
+                "description": "Object: A beige upholstered stool with decorative stitching. The stool is positioned on a gray carpeted floor near a rug with a pinkish pattern.",
+                "distance": 0.2280019310116768
+            },
+            "10": {
+                "description": "Object: A white sofa. The sofa is adorned with decorative pillows and a gray throw blanket, positioned in a well-lit room with a window, adjacent furniture, and a floor lamp.",
+                "distance": 0.797707180182139
+            },
+            "23": {
+                "description": "Object: Throw blanket. The patterned throw blanket is placed on various furniture including a white bedside table, a modern chair, and a beige sofa while a faux fur blanket is draped over a white couch.",
+                "distance": 0.5610596998171373
+            },
+            "4": {
+                "description": "Object: White window blinds. The blinds are partially closed, covering a window with a white couch and decorative pillows situated below it, all part of a well-lit room.",
+                "distance": 1.4412886425852776
+            },
+            "2": {
+                "description": "Object: Two round upholstered stools. The stools are positioned on a rug in a room featuring a wooden sideboard against one wall and a window to the right. The stools are also shown near a couch with throw pillows and a dark pot in the background in a different setting.",
+                "distance": 1.1249616274646683
+            },
+            "3": {
+                "description": "Object: White horizontal window blinds. The blinds are covering a large window, and beneath them is a white couch with decorative pillows in a room that receives natural light.",
+                "distance": 1.4185858734192387
+            },
+            "22": {
+                "description": "Object: A beige ottoman. The ottoman features tufting detail, is upholstered, and is positioned on a dark rug against a gray wall.",
+                "distance": 0.6144627332687378
+            },
+            "12": {
+                "description": "Object: A white sofa. The sofa is adorned with various decorative pillows and positioned against a wall under a large piece of abstract art in a modern living room. It is adjacent to a side table and floor lamp, and situated beside a wooden round coffee table.",
+                "distance": 1.4759095907211304
+            }
+        }
+    ],
+    "1": [
+        {
+            "5": {
+                "description": "Object: Fluorescent ceiling lights. The lights are installed in an office setting that features a window with blinds and a mounted television or display screen on the wall.",
+                "distance": 1.7056182673853686
+            },
+            "7": {
+                "description": "Object: A round wooden coffee table. The coffee table is in the center of a living room surrounded by white sofas and a patterned area rug.",
+                "distance": 0.545609851778557
+            },
+            "10": {
+                "description": "Object: A white sofa. The sofa is adorned with decorative pillows and a gray throw blanket, positioned in a well-lit room with a window, adjacent furniture, and a floor lamp.",
+                "distance": 0.7499838570753733
+            },
+            "23": {
+                "description": "Object: Throw blanket. The patterned throw blanket is placed on various furniture including a white bedside table, a modern chair, and a beige sofa while a faux fur blanket is draped over a white couch.",
+                "distance": 0.5361172301428658
+            },
+            "4": {
+                "description": "Object: White window blinds. The blinds are partially closed, covering a window with a white couch and decorative pillows situated below it, all part of a well-lit room.",
+                "distance": 1.4497793912887573
+            },
+            "2": {
+                "description": "Object: Two round upholstered stools. The stools are positioned on a rug in a room featuring a wooden sideboard against one wall and a window to the right. The stools are also shown near a couch with throw pillows and a dark pot in the background in a different setting.",
+                "distance": 1.1997206825762987
+            },
+            "3": {
+                "description": "Object: White horizontal window blinds. The blinds are covering a large window, and beneath them is a white couch with decorative pillows in a room that receives natural light.",
+                "distance": 1.5153846202358123
+            },
+            "17": {
+                "description": "Object: A beige upholstered stool with decorative stitching. The stool is positioned on a gray carpeted floor near a rug with a pinkish pattern.",
+                "distance": 0.2484823703765869
+            },
+            "22": {
+                "description": "Object: A beige ottoman. The ottoman features tufting detail, is upholstered, and is positioned on a dark rug against a gray wall.",
+                "distance": 0.5733601152896881
+            },
+            "12": {
+                "description": "Object: A white sofa. The sofa is adorned with various decorative pillows and positioned against a wall under a large piece of abstract art in a modern living room. It is adjacent to a side table and floor lamp, and situated beside a wooden round coffee table.",
+                "distance": 1.2604239853945645
+            },
+            "15": {
+                "description": "Object: A round wooden coffee table. The coffee table is adorned with decorative items including a vase, a pair of horns, a dish on a tray, books, a candle, and a metal object. It is positioned in a living room in front of a white sofa.",
+                "distance": 0.6984374035488475
+            }
+        }
+    ],
+    "2": [
+        {
+            "15": {
+                "description": "Object: A round wooden coffee table. The coffee table is adorned with decorative items including a vase, a pair of horns, a dish on a tray, books, a candle, and a metal object. It is positioned in a living room in front of a white sofa.",
+                "distance": 0.5910312179476023
+            },
+            "7": {
+                "description": "Object: A round wooden coffee table. The coffee table is in the center of a living room surrounded by white sofas and a patterned area rug.",
+                "distance": 0.5238540162877924
+            },
+            "10": {
+                "description": "Object: A white sofa. The sofa is adorned with decorative pillows and a gray throw blanket, positioned in a well-lit room with a window, adjacent furniture, and a floor lamp.",
+                "distance": 0.8920927792787552
+            },
+            "23": {
+                "description": "Object: Throw blanket. The patterned throw blanket is placed on various furniture including a white bedside table, a modern chair, and a beige sofa while a faux fur blanket is draped over a white couch.",
+                "distance": 0.6306237498919169
+            },
+            "4": {
+                "description": "Object: White window blinds. The blinds are partially closed, covering a window with a white couch and decorative pillows situated below it, all part of a well-lit room.",
+                "distance": 1.6040673777461052
+            },
+            "3": {
+                "description": "Object: White horizontal window blinds. The blinds are covering a large window, and beneath them is a white couch with decorative pillows in a room that receives natural light.",
+                "distance": 1.5783954574948265
+            },
+            "2": {
+                "description": "Object: Two round upholstered stools. The stools are positioned on a rug in a room featuring a wooden sideboard against one wall and a window to the right. The stools are also shown near a couch with throw pillows and a dark pot in the background in a different setting.",
+                "distance": 1.1318190154575167
+            },
+            "12": {
+                "description": "Object: A white sofa. The sofa is adorned with various decorative pillows and positioned against a wall under a large piece of abstract art in a modern living room. It is adjacent to a side table and floor lamp, and situated beside a wooden round coffee table.",
+                "distance": 1.3727738857269287
+            },
+            "17": {
+                "description": "Object: A beige upholstered stool with decorative stitching. The stool is positioned on a gray carpeted floor near a rug with a pinkish pattern.",
+                "distance": 0.3000301798948875
+            },
+            "22": {
+                "description": "Object: A beige ottoman. The ottoman features tufting detail, is upholstered, and is positioned on a dark rug against a gray wall.",
+                "distance": 0.505258383495467
+            }
+        }
+    ],
+    "3": [
+        {
+            "15": {
+                "description": "Object: A round wooden coffee table. The coffee table is adorned with decorative items including a vase, a pair of horns, a dish on a tray, books, a candle, and a metal object. It is positioned in a living room in front of a white sofa.",
+                "distance": 0.48658319734610045
+            },
+            "7": {
+                "description": "Object: A round wooden coffee table. The coffee table is in the center of a living room surrounded by white sofas and a patterned area rug.",
+                "distance": 0.527338492118718
+            },
+            "10": {
+                "description": "Object: A white sofa. The sofa is adorned with decorative pillows and a gray throw blanket, positioned in a well-lit room with a window, adjacent furniture, and a floor lamp.",
+                "distance": 1.0946715633074442
+            },
+            "2": {
+                "description": "Object: Two round upholstered stools. The stools are positioned on a rug in a room featuring a wooden sideboard against one wall and a window to the right. The stools are also shown near a couch with throw pillows and a dark pot in the background in a different setting.",
+                "distance": 1.2096599141756694
+            },
+            "17": {
+                "description": "Object: A beige upholstered stool with decorative stitching. The stool is positioned on a gray carpeted floor near a rug with a pinkish pattern.",
+                "distance": 0.5279798573917813
+            },
+            "22": {
+                "description": "Object: A beige ottoman. The ottoman features tufting detail, is upholstered, and is positioned on a dark rug against a gray wall.",
+                "distance": 0.4245165132957956
+            },
+            "9": {
+                "description": "Object: A black and white canvas print. The print is abstract and hangs above a sofa adorned with decorative pillows, with interpretations ranging from an outdoor landscape to a boat on water, textured surfaces, or even a railway scene. However, the exact content of the image is not definitively described.",
+                "distance": 1.6002061026436942
+            },
+            "12": {
+                "description": "Object: A white sofa. The sofa is adorned with various decorative pillows and positioned against a wall under a large piece of abstract art in a modern living room. It is adjacent to a side table and floor lamp, and situated beside a wooden round coffee table.",
+                "distance": 0.8713128241625699
+            }
+        }
+    ],
+    "4": [
+        {
+            "5": {
+                "description": "Object: Fluorescent ceiling lights. The lights are installed in an office setting that features a window with blinds and a mounted television or display screen on the wall.",
+                "distance": 1.7355148752530416
+            },
+            "15": {
+                "description": "Object: A round wooden coffee table. The coffee table is adorned with decorative items including a vase, a pair of horns, a dish on a tray, books, a candle, and a metal object. It is positioned in a living room in front of a white sofa.",
+                "distance": 0.5202478667100271
+            },
+            "7": {
+                "description": "Object: A round wooden coffee table. The coffee table is in the center of a living room surrounded by white sofas and a patterned area rug.",
+                "distance": 0.5249717245841848
+            },
+            "2": {
+                "description": "Object: Two round upholstered stools. The stools are positioned on a rug in a room featuring a wooden sideboard against one wall and a window to the right. The stools are also shown near a couch with throw pillows and a dark pot in the background in a different setting.",
+                "distance": 1.1766517058662747
+            },
+            "22": {
+                "description": "Object: A beige ottoman. The ottoman features tufting detail, is upholstered, and is positioned on a dark rug against a gray wall.",
+                "distance": 0.4201923750695728
+            },
+            "12": {
+                "description": "Object: A white sofa. The sofa is adorned with various decorative pillows and positioned against a wall under a large piece of abstract art in a modern living room. It is adjacent to a side table and floor lamp, and situated beside a wooden round coffee table.",
+                "distance": 0.589769824887767
+            },
+            "9": {
+                "description": "Object: A black and white canvas print. The print is abstract and hangs above a sofa adorned with decorative pillows, with interpretations ranging from an outdoor landscape to a boat on water, textured surfaces, or even a railway scene. However, the exact content of the image is not definitively described.",
+                "distance": 1.3765250883604352
+            }
+        }
+    ],
+    "5": {
+        "5": {
+            "description": "Object: Fluorescent ceiling lights. The lights are installed in an office setting that features a window with blinds and a mounted television or display screen on the wall.",
+            "distance": 1.6495422327863998
+        },
+        "7": {
+            "description": "Object: A round wooden coffee table. The coffee table is in the center of a living room surrounded by white sofas and a patterned area rug.",
+            "distance": 0.5207099190252853
+        },
+        "15": {
+            "description": "Object: A round wooden coffee table. The coffee table is adorned with decorative items including a vase, a pair of horns, a dish on a tray, books, a candle, and a metal object. It is positioned in a living room in front of a white sofa.",
+            "distance": 0.6024623645676507
+        },
+        "2": {
+            "description": "Object: Two round upholstered stools. The stools are positioned on a rug in a room featuring a wooden sideboard against one wall and a window to the right. The stools are also shown near a couch with throw pillows and a dark pot in the background in a different setting.",
+            "distance": 1.1548424303531646
+        },
+        "22": {
+            "description": "Object: A beige ottoman. The ottoman features tufting detail, is upholstered, and is positioned on a dark rug against a gray wall.",
+            "distance": 0.5448772195312712
+        },
+        "12": {
+            "description": "Object: A white sofa. The sofa is adorned with various decorative pillows and positioned against a wall under a large piece of abstract art in a modern living room. It is adjacent to a side table and floor lamp, and situated beside a wooden round coffee table.",
+            "distance": 0.3300975433144814
+        },
+        "32": {
+            "description": "Object: A decorative pillow with a leaf pattern. The pillow is placed on a couch or bed, positioned among other pillows, with a partial view of a table and a possible lamp in the vicinity.",
+            "distance": 0.32611386229594547
+        },
+        "9": {
+            "description": "Object: A black and white canvas print. The print is abstract and hangs above a sofa adorned with decorative pillows, with interpretations ranging from an outdoor landscape to a boat on water, textured surfaces, or even a railway scene. However, the exact content of the image is not definitively described.",
+            "distance": 1.1595524042844771
+        }
+    }
+}

@@ -23,49 +23,6 @@ from conceptfields.renderer.pipeline import Pipeline, load_pipeline
 DEFAULT_PROMPT = "Combine the following descriptions of surrounding objects into an informative description."
 
 
-def spherical_to_cartesian(theta: TorchTensor, phi: TorchTensor):
-    """ 
-    Convert spherical coordinates to cartesian coordinates 
-    """
-    x = torch.sin(theta) * torch.cos(phi)
-    y = torch.sin(theta) * torch.sin(phi)
-    z = torch.cos(theta)
-    return x, y, z
-
-
-def cartesian_to_spherical(x: TorchTensor, y: TorchTensor, z: TorchTensor) -> Tuple[float, float]:
-    """ 
-    Convert cartesian coordinates to spherical coordinates 
-    """
-    r     = torch.sqrt(x**2 + y**2 + z**2)
-    theta = torch.arccos(z / r)
-    phi   = torch.arctan2(y, x)
-    return theta, phi
-
-
-def average_angles_spherical(thetas: TorchTensor, phis: TorchTensor) -> Tuple[float, float]:
-    """ 
-    Compute the average of angles in spherical coordinates 
-    """
-    # Convert all angles to cartesian coordinates
-    x, y, z = spherical_to_cartesian(thetas, phis)
-
-    # Compute the mean of the cartesian coordinates
-    mean_x = torch.mean(x)
-    mean_y = torch.mean(y)
-    mean_z = torch.mean(z)
-    
-    # Convert the mean cartesian coordinates back to spherical coordinates
-    return cartesian_to_spherical(mean_x, mean_y, mean_z)
-
-
-def rad2deg(rad: float) -> float:
-    """
-    Convert radians to degrees.
-    """
-    return rad * 180 / np.pi
-
-
 class ModelLFFOutputFunc:
     """
     """
@@ -98,16 +55,9 @@ class ModelLFFOutputFuncSceneContext(ModelLFFOutputFunc):
         for label in freq.keys():
             if freq[label] < self.threshold_freq or mean_distance[label] > self.threshold_distance:
                 continue
-            theta, phi = average_angles_spherical(
-                thetas[model_outputs['semantics_pred'].cpu() == label], 
-                phis  [model_outputs['semantics_pred'].cpu() == label]
-            )
-            cartesian = torch.tensor(spherical_to_cartesian(theta, phi))
-            relative = pose[:3, :3].transpose @ cartesian
-            rel_angles = cartesian_to_spherical(*relative)
             outputs[label] = {
                 'description': labels2descriptions.get(label, 'No data available.'),
-                'scoord': (mean_distance[label], rad2deg(rel_angles[0].item()), rad2deg(rel_angles[1].item())),
+                'distance': mean_distance[label],
             }
         return outputs
 
@@ -123,7 +73,8 @@ class ModelLFF(nn.Module):
         super().__init__()
         self.pipeline = pipeline
         self.output_func = output_func
-        self.labels2descriptions = ds.info.get('labels2descriptions', {})
+        self.labels2descriptions = ds.info.get('label2texts', {})
+        self.labels2descriptions = {int(k): v for k, v in self.labels2descriptions.items()}
         
     def forward(self, pose: TorchTensor[4, 4]) -> Dict[str, SingleOutput]:
         """
@@ -162,8 +113,10 @@ if __name__ == '__main__':
     from conceptfields.data.deeplake_utils import load_dataset
     ds = load_dataset('replica-niceslam/room0_grounded_sam')
 
+    name = 'reasoning'
+
     BASEDIR = Path('/data/vision/torralba/scratch/gtangg12/conceptfields')
-    cameras = json.load(open(BASEDIR / 'renders/camera_path_navigation.json', 'r'))
+    cameras = json.load(open(BASEDIR / f'renders/camera_path_{name}.json', 'r'))
     cameras = get_path_from_json(cameras)
 
     pipeline = load_pipeline(
@@ -172,7 +125,10 @@ if __name__ == '__main__':
     )
     model = ModelLFF(ds, pipeline, output_func=ModelLFFOutputFuncSceneContext(10, 1.75))
     model.cuda()
+    outputs = {}
+    frame = 0
     for i in range(0, len(cameras.camera_to_worlds), len(cameras.camera_to_worlds) // 5):
-        print(i)
-        model(cameras.camera_to_worlds[i].cuda())
-    model(cameras.camera_to_worlds[-1].cuda())
+        outputs[frame] = model(cameras.camera_to_worlds[i].cuda()),
+        frame += 1
+    outputs[frame] = model(cameras.camera_to_worlds[-1].cuda())
+    json.dump(outputs, open(f'outputs_{name}.json', 'w'), indent=4)
