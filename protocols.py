@@ -22,7 +22,10 @@ class Point:
             1 - (math.sin(self.theta) * math.sin(other.theta) * math.cos(self.phi - other.phi) + math.cos(self.theta) * math.cos(other.theta))
         ) ** 0.5
         return translation + rotation
-
+    
+    def embed6d(self) -> tuple[float, float, float, float, float, float]:
+        return (self.x, self.y, self.z, math.cos(self.theta), math.sin(self.theta) * math.cos(self.phi), math.sin(self.theta) * math.sin(self.phi))
+    
 class NeRFModule(Protocol):
     def query_point(self, point: Point) -> List[Tuple[Point, str]]:
         ...
@@ -44,9 +47,9 @@ class LLMModule(Protocol, Generic[TLLMOut]):
 
 
 class SpatialCacheProtocol(Protocol, Generic[TLLMOut]):
-    nerf: NeRFModule
+    # nerf: NeRFModule
     llm: LLMModule
-    def cached_query(self, point: Point) -> TLLMOut:
+    def query(self, point: Point) -> TLLMOut:
         ...
 
 

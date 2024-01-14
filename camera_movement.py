@@ -1,19 +1,25 @@
+from babies import mock_nerf_babies, babies_task, front_pose, back_pose
+from llm_agent import LLMAgent
+from protocols import LLMModule
 import pygame
+from spatial_cache import SpatialCache
 import torch
 from torchtyping import TensorType as TorchTensor
 
 print('imports successful')
 class App():
-    def __init__(self):
+    def __init__(self, llm: LLMModule, task: str):
         self.window_width = 800
         self.window_height = 600
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
-        self.projection: TorchTensor[4, 4] = torch.tensor([
+        self.pose: TorchTensor[4, 4] = torch.tensor([
             [1, 0, 0, 0],
             [0, 1, 0, 0],
             [0, 0, 1, 0],
             [0, 0, 0, 1]
         ], dtype=torch.float32) # world2cam, need to invert it to get cam2world
+        self.llm = llm
+        self.task = task
         
         pygame.init()
 
@@ -31,70 +37,70 @@ class App():
             rotate = torch.tensor([0.02])
             if key_pressed[pygame.K_w]:
                 # forward
-                self.projection[2, 3] += translate
+                self.pose[2, 3] += translate
             if key_pressed[pygame.K_s]:
                 # backward
-                self.projection[2, 3] -= translate
+                self.pose[2, 3] -= translate
             if key_pressed[pygame.K_a]:
                 # left
-                self.projection[0, 3] -= translate
+                self.pose[0, 3] -= translate
             if key_pressed[pygame.K_d]:
                 # right
-                self.projection[0, 3] += translate
+                self.pose[0, 3] += translate
             if key_pressed[pygame.K_q]:
                 # up
-                self.projection[1, 3] += translate
+                self.pose[1, 3] += translate
             if key_pressed[pygame.K_e]:
                 # down
-                self.projection[1, 3] -= translate
+                self.pose[1, 3] -= translate
             if key_pressed[pygame.K_i]:
                 # pitch up
-                new_r = self.projection[:, :3] @ torch.tensor([
+                new_r = self.pose[:, :3] @ torch.tensor([
                     [torch.cos(rotate), 0, torch.sin(rotate)],
                     [0, 1, 0],
                     [-torch.sin(rotate), 0, torch.cos(rotate)],
                 ])
-                self.projection[:, :3] = new_r
+                self.pose[:, :3] = new_r
             if key_pressed[pygame.K_k]:
                 # pitch down
-                new_r = self.projection[:, :3] @ torch.tensor([
+                new_r = self.pose[:, :3] @ torch.tensor([
                     [torch.cos(-rotate), 0, torch.sin(-rotate)],
                     [0, 1, 0],
                     [-torch.sin(-rotate), 0, torch.cos(-rotate)],
                 ])
-                self.projection[:, :3] = new_r
+                self.pose[:, :3] = new_r
             if key_pressed[pygame.K_j]:
                 # yaw left
-                new_r = self.projection[:, :3] @ torch.tensor([
+                new_r = self.pose[:, :3] @ torch.tensor([
                     [1, 0, 0],
                     [0, torch.cos(rotate), -torch.sin(rotate)],
                     [0, torch.sin(rotate), torch.cos(rotate)],
                 ])
-                self.projection[:, :3] = new_r
+                self.pose[:, :3] = new_r
             if key_pressed[pygame.K_l]:
                 # yaw right
-                new_r = self.projection[:, :3] @ torch.tensor([
+                new_r = self.pose[:, :3] @ torch.tensor([
                     [1, 0, 0],
                     [0, torch.cos(-rotate), -torch.sin(-rotate)],
                     [0, torch.sin(-rotate), torch.cos(-rotate)],
                 ])
-                self.projection[:, :3] = new_r
+                self.pose[:, :3] = new_r
             if key_pressed[pygame.K_u]:
                 # roll left
-                new_r = self.projection[:, :3] @ torch.tensor([
+                new_r = self.pose[:, :3] @ torch.tensor([
                     [torch.cos(rotate), -torch.sin(rotate), 0],
                     [torch.sin(rotate), torch.cos(rotate), 0],
                     [0, 0, 1],
                 ])
-                self.projection[:, :3] = new_r
+                self.pose[:, :3] = new_r
             if key_pressed[pygame.K_o]:
                 # roll right
-                new_r = self.projection[:, :3] @ torch.tensor([
+                new_r = self.pose[:, :3] @ torch.tensor([
                     [torch.cos(-rotate), -torch.sin(-rotate), 0],
                     [torch.sin(-rotate), torch.cos(-rotate), 0],
                     [0, 0, 1],
                 ])
-                self.projection[:, :3] = new_r
+                self.pose[:, :3] = new_r
                 
             self.render()
             pygame.display.flip()
@@ -103,13 +109,20 @@ class App():
     def render(self):
         font_size = 20
         font = pygame.font.Font(None, font_size) 
-        image = font.render(str(self.projection), True, (255, 255, 255))
-        image_surface = pygame.Surface((self.window_width, self.window_height))
-        image_surface.blit(image, (0, 0)) 
-        self.window.blit(image_surface, (0, 0))
+        llm_output = self.llm.query(user_pose=self.pose, task_prompt=self.task)
 
-        print(self.projection)
+        output_desc = font.render(str(llm_output), True, (255, 255, 255))
+        output_surface = pygame.Surface((self.window_width, 300))
+        output_surface.blit(output_desc, (0, 0)) 
+        self.window.blit(output_surface, (0, 0))
+
+        post_desc = font.render(str(self.pose), True, (255, 255, 255))
+        post_surface = pygame.Surface((self.window_width, 300))
+        post_surface.blit(post_desc, (0, 0))
+        self.window.blit(post_surface, (0, 300))
 
 if __name__ == "__main__":
-    app = App()
+    agent_babies = LLMAgent(mock_nerf_babies)
+    cached_agent = SpatialCache(agent_babies)
+    app = App(cached_agent, babies_task)
     app.run()

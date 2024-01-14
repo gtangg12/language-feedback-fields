@@ -6,3 +6,5 @@ Make a video game that lets user be the robot
 Determining whether certain actions are appropriate
 Balancing objects in a factory
 Estimating the value of a physical property
+Help blind people see stuff
+Baby-proofing

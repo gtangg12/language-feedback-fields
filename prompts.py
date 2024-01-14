@@ -5,25 +5,18 @@ Given the task that the user wants to accomplish, you must decide whether or not
 USER INPUTS: The user tasks can come in many forms. Here are some example queries:
 "Find a table that is made of wood and brown in color",
 "What is 1 + 1?",
-"Find a vase that can contain a large bouquet",
-"Somewhere to sit and have a zoom meeting",
-"It is dark and I want to read. Find me something that can help"
 
 This is the task the user wants to accomplish: {task_prompt}.
 
 YOUR RESPONSE (You should only respond in JSON format as described below):
 
 RESPONSE TEMPLATE:
-{
-    "thoughts":
-    {
-        "observation": "observation",
-        "reasoning": "reasoning",
-    },
+{{
+    "observation": "observation",
+    "reasoning": "reasoning",
     "needs_scene_descriptions": boolean (True if the function that gets the descriptions of surrounding objects should be called, False otherwise),
     "output": "a response that helps the user accomplish their task with the current knowledge."
-    ]
-}
+}}
 
 This output must be compatible with Python's json.loads() function. 
 
@@ -32,28 +25,22 @@ EXAMPLES:
 User Input: "Find a table that is made of wood and brown in color."
 
 Your Response: 
-{
-    "thoughts":
-    {
-        "observation": "The user described a table made of wood and brown in color and wants help locating this table.",
-        "reasoning": "The details of the table, wood and brown, will help the agent identify the target object more accurately. However, the agent needs more information on objects in the scene in order to locate the described table.",
-    },
+{{
+    "observation": "The user described a table made of wood and brown in color and wants help locating this table.",
+    "reasoning": "The details of the table, wood and brown, will help the agent identify the target object more accurately. However, the agent needs more information on objects in the scene in order to locate the described table.",
     "needs_scene_descriptions": True,
     "output": "I need information about the scene to find a table that is made of wood and brown in color."
-}
+}}
 
 User Input: "What is 1 + 1?"
 
 Your Response: 
-{
-    "thoughts":
-    {
-        "observation": "The user is asking for help with a basic arithmetic calculation.",
-        "reasoning": "In order to solve this arithmetic operation, no additional observations or descriptions of objects surrounding the user is necessary.",
-    },
+{{
+    "observation": "The user is asking for help with a basic arithmetic calculation.",
+    "reasoning": "In order to solve this arithmetic operation, no additional observations or descriptions of objects surrounding the user is necessary.",
     "needs_scene_descriptions": False,
     "output": "1 + 1 = 2"
-}
+}}
 
 Again, your response should always be in JSON format that can be parsed by Python json.loads().
 """
@@ -64,10 +51,7 @@ Given the task that the user wants to accomplish, your goal is to consider the c
 
 USER INPUTS: The user tasks can come in many forms. Here are some example queries:
 "Find a table that is made of wood and brown in color",
-"What is 1 + 1?",
-"Find a vase that can contain a large bouquet",
-"Somewhere to sit and have a zoom meeting",
-"It is dark and I want to read. Find me something that can help"
+"What is 1 + 1?"
 
 This is the task the user wants to accomplish: {task_prompt}
 
@@ -79,15 +63,11 @@ This is the actual output of the helper function: {scene_descriptions}
 YOUR RESPONSE (You should only respond in JSON format as described below):
 
 RESPONSE TEMPLATE:
-{
-    "thoughts":
-    {
-        "observation": "observation",
-        "reasoning": "reasoning",
-    },
+{{
+    "observation": "observation",
+    "reasoning": "reasoning",
     "output": "a response that helps the user accomplish their task with the current knowledge."
-    ]
-}
+}}
 
 This output must be compatible with Python's json.loads() function. 
 
@@ -97,26 +77,20 @@ EXAMPLES:
 User Input: "Find a table that is made of wood and brown in color."
 
 Your Response: 
-{
-    "thoughts":
-    {
-        "observation": "The user described a table made of wood and brown in color and wants help locating this table. The helper function outputs includes a dark brown table at coordinates (2.874, 2.108, 4.092).",
-        "reasoning": "The details of the table, wood and brown, will help the agent identify the target object more accurately. There is a description of a dark brown table in the helper function output. This seems very relevant to the user's task.",
-    },
+{{
+    "observation": "The user described a table made of wood and brown in color and wants help locating this table. The helper function outputs includes a dark brown table at coordinates (2.874, 2.108, 4.092).",
+    "reasoning": "The details of the table, wood and brown, will help the agent identify the target object more accurately. There is a description of a dark brown table in the helper function output. This seems very relevant to the user's task.",
     "output": "There is a dark brown table at coordinates (2.874, 2.108, 4.092)."
-}
+}}
 
 User Input: "Where can I put my leftovers?"
 
 Your Response: 
-{
-    "thoughts":
-    {
-        "observation": "The user is asking for help finding a place to put their leftovers. There is a table at (2.874, 2.108, 4.092). There is a fridge at (3.062, 3.138, 2.894).",
-        "reasoning": "Leftovers can be put on the table if the user intends to eat them immediately. Leftovers generally go in the fridge if the user plans to save them for later. Leftovers may also go in a trash can if they are not intended to be saved.",
-    },
+{{
+    "observation": "The user is asking for help finding a place to put their leftovers. There is a table at (2.874, 2.108, 4.092). There is a fridge at (3.062, 3.138, 2.894).",
+    "reasoning": "Leftovers can be put on the table if the user intends to eat them immediately. Leftovers generally go in the fridge if the user plans to save them for later. Leftovers may also go in a trash can if they are not intended to be saved.",
     "output": "You can put your leftovers in the fridge at coordinates (3.062, 3.138, 2.894). Alternatively, if you want to eat them now, you can put them on the table at (2.874, 2.108, 4.092)."
-}
+}}
 
 Again, your response should always be in JSON format that can be parsed by Python json.loads().
 """

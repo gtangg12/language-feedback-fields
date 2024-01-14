@@ -7,7 +7,20 @@ import torch
 import torch.nn as nn
 from PIL import Image
 
-from conceptfields.utils.formats import encode_base64
+# from conceptfields.utils.formats import encode_base64
+import io
+import base64
+from PIL import Image
+
+
+def encode_base64(image: Image.Image):
+    """
+    Save PIL image to base64 string.
+    """
+    buffer = io.BytesIO()
+    image.save(buffer, format='JPEG')
+    return base64.b64encode(buffer.getvalue()).decode('utf-8')
+
 
 
 class SystemMode(Enum):
@@ -51,7 +64,7 @@ class GPT(nn.Module):
         self.system_mode = system_mode
         self.reset()
 
-    def forward(self, text: Optional[str]=None, image: Optional[List[Image.Image]]=None, max_tokens=512) -> str:
+    def forward(self, text: Optional[str]=None, image: Optional[List[Image.Image]]=None, max_tokens=512, temperature: Optional[float]=0.0) -> str:
         """
         Send a prompt to the model and return the response.
 
@@ -71,7 +84,7 @@ class GPT(nn.Module):
             'Content-Type' : 'application/json',
             'Authorization': 'Bearer {}'.format(os.getenv('OPENAI_API_KEY')),
         }
-        data = {'model': self.model, 'messages': self.messages, 'max_tokens': max_tokens}
+        data = {'model': self.model, 'messages': self.messages, 'max_tokens': max_tokens, 'temperature': temperature}
         if self.system_mode == SystemMode.JSON:
             data['response_format'] = {'type': 'json_object'}
         response = requests.post('https://api.openai.com/v1/chat/completions', headers=headers, json=data)
