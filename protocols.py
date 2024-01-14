@@ -56,4 +56,4 @@ class SpatialCacheProtocol(Protocol, Generic[TLLMOut]):
 @dataclass
 class SingleOutput:
     description: str
-    scoord: tuple[float, float, float] # r, theta, phi
+    distance: float # r, theta, phi

@@ -15,9 +15,9 @@ import json
 
 def mock_nerf(user_pose: TorchTensor[4, 4]) -> dict[str, SingleOutput]:
     return {
-        "table": SingleOutput("big and round", (3, 0, 0)),
-        "water": SingleOutput("water bottle", (2, 0, 0)),
-        "costco bear": SingleOutput("fuzzy like George", (1, 0, 0)),
+        "table": SingleOutput("big and round", 3.0),
+        "water": SingleOutput("water bottle", 2.0),
+        "costco bear": SingleOutput("fuzzy like George", 1.0),
     }
 
 
@@ -54,7 +54,7 @@ class LLMAgent():
             NERF_outputs = self.nerf_api(user_pose) #TODO: replace with actual NERF API call
 
             scene_descriptions: List[Tuple[tuple[float, float, float], str]] = [
-                (value.scoord, value.description) for value in NERF_outputs.values()
+                (value.distance, value.description) for value in NERF_outputs.values()
             ]
             # Test value: [((2.874, 2.108, 4.092), "Dark brown table"), ((3.062, 3.138, 2.894), "White fridge"), ((3.062, 3.138, 2.894), "Red carpet")]
 
