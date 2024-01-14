@@ -153,6 +153,12 @@ class KDTree(object):
 
 if __name__ == '__main__':
     tree = KDTree([], 4)
-    tree.add_point([0, 0, 0, 1])
-    print(tree.get_knn([1, 0, 0, 0], 1, True))
-    print(tree.get_nearest([1, 0, 0, 0], True))
+    tree.add_point([1, 0, 0, 1])
+    print(tree.get_nearest([1, 0, 0, 1], True))
+    print(tree.get_nearest([1, 0, 0, 1], True))
+    print(tree.get_nearest([1, 0, 0, 1], True))
+    print(tree.get_nearest([1, 0, 0, 1], True))
+    print(tree.get_nearest([1, 0, 0, 1], True))
+    print(tree.get_nearest([1, 0, 0.1, 1], True))
+    print(tree.get_nearest([1, 0, 0.1, 1], True))
+    
